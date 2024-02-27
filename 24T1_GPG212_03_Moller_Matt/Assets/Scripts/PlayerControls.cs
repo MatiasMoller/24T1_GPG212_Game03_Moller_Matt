@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,12 +12,14 @@ public class PlayerControls : MonoBehaviour
     public LayerMask whatIsGround;
     private bool onGround;
     private bool forward;
+    private bool antiGrav;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         forward = true;
+        antiGrav = false;
     }
 
     // Update is called once per frame
@@ -30,9 +33,12 @@ public class PlayerControls : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && onGround)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 5);
+           
+                rb.velocity = new Vector2(rb.velocity.x, 5);
+            
         }
-    }
+
+    } 
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -63,10 +69,19 @@ public class PlayerControls : MonoBehaviour
         if (collision.gameObject.CompareTag("Orb"))
         {
             // Apply upward force to defy gravity
-            rb.gravityScale = -1f;
+            AntiGrav();
         }
     }
 
+    private void AntiGrav()
+    {
+        antiGrav = true;
+        rb.gravityScale = -1f;
 
+        //if (Input.GetMouseButtonDown(0) && onGround)
+        //{
+        //    rb.velocity = new Vector2(rb.velocity.x, 5);
+        //}
+    }
 
 }
