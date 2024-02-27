@@ -51,5 +51,6 @@ public class PlayerControls : MonoBehaviour
         {
             SceneManager.LoadScene("Game");
         }
+
     }
 }
