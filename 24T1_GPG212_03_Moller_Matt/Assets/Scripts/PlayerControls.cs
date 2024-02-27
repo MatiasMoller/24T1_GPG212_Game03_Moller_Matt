@@ -43,7 +43,7 @@ public class PlayerControls : MonoBehaviour
             forward = !forward;
             rb.velocity = new Vector2(forward ? 6f : -6f, rb.velocity.y);
         }
-        if (collision.gameObject.CompareTag("Spike")) 
+        if (collision.gameObject.CompareTag("Spike"))
         {
             SceneManager.LoadScene("Game");
         }
@@ -51,6 +51,22 @@ public class PlayerControls : MonoBehaviour
         {
             SceneManager.LoadScene("Game");
         }
+        //else if (collision.gameObject.CompareTag("Flag"))
+        //{
+        //    SceneManager.LoadScene("Win");
+        //}
+
 
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Orb"))
+        {
+            // Apply upward force to defy gravity
+            rb.gravityScale = -1f;
+        }
+    }
+
+
+
 }
