@@ -8,6 +8,7 @@ TagManager:
   - Spike
   - FakeWall
   - Orb
+  - Portal
   layers:
   - Default
   - TransparentFX
