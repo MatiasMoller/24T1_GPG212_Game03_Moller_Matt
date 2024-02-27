@@ -37,6 +37,8 @@ public class PlayerControls : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, 5);
             
         }
+        
+        
 
     } 
 
@@ -57,10 +59,10 @@ public class PlayerControls : MonoBehaviour
         {
             SceneManager.LoadScene("Game");
         }
-        //else if (collision.gameObject.CompareTag("Flag"))
-        //{
-        //    SceneManager.LoadScene("Win");
-        //}
+        else if (collision.gameObject.CompareTag("Portal"))
+        {
+            SceneManager.LoadScene("Win");
+        }
 
 
     }
@@ -78,10 +80,10 @@ public class PlayerControls : MonoBehaviour
         antiGrav = true;
         rb.gravityScale = -1f;
 
-        //if (Input.GetMouseButtonDown(0) && onGround)
-        //{
-        //    rb.velocity = new Vector2(rb.velocity.x, 5);
-        //}
+        if (Input.GetMouseButtonDown(0) && onGround)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 5);
+        }
     }
 
 }
