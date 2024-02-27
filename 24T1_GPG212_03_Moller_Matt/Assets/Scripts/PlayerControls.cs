@@ -43,7 +43,11 @@ public class PlayerControls : MonoBehaviour
             forward = !forward;
             rb.velocity = new Vector2(forward ? 6f : -6f, rb.velocity.y);
         }
-        if (collision.gameObject.CompareTag("Spike"))
+        if (collision.gameObject.CompareTag("Spike")) 
+        {
+            SceneManager.LoadScene("Game");
+        }
+        if (collision.gameObject.CompareTag("FakeWall"))
         {
             SceneManager.LoadScene("Game");
         }

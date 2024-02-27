@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Spike
+  - FakeWall
   layers:
   - Default
   - TransparentFX
