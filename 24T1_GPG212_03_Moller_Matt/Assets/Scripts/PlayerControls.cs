@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,22 +13,23 @@ public class PlayerControls : MonoBehaviour
     private bool forward;
     private bool antiGrav;
 
-    
-    private AudioSource audioSource;
+    public AudioSource jumpAudioSource;
+    public AudioSource wallAudioSource;
+    public AudioSource orbAudioSource;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         forward = true;
-        antiGrav = false;
-        audioSource = GetComponent<AudioSource>();
+
+        // Assuming you have two separate AudioSources attached to the same GameObject
+        jumpAudioSource = GetComponents<AudioSource>()[0];
+        wallAudioSource = GetComponents<AudioSource>()[1];
+        orbAudioSource = GetComponents<AudioSource>()[2];
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Adjust velocity based on the forward variable
         float moveSpeed = forward ? 6f : -6f;
         rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
 
@@ -37,25 +37,22 @@ public class PlayerControls : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && onGround)
         {
-            
-                rb.velocity = new Vector2(rb.velocity.x, 5);
-            audioSource.Play();
-
+            rb.velocity = new Vector2(rb.velocity.x, 5);
+            jumpAudioSource.Play();
         }
-        
-        
-
-    } 
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if the collided object has the tag "Wall"
         if (collision.gameObject.CompareTag("Wall"))
         {
-            // Reverse the forward variable and adjust velocity accordingly
             forward = !forward;
             rb.velocity = new Vector2(forward ? 6f : -6f, rb.velocity.y);
+            wallAudioSource.Play();
         }
+    
+
+
         if (collision.gameObject.CompareTag("Spike"))
         {
             SceneManager.LoadScene("Game");
@@ -77,6 +74,7 @@ public class PlayerControls : MonoBehaviour
         {
             // Apply upward force to defy gravity
             AntiGrav();
+            orbAudioSource.Play();
         }
     }
 
