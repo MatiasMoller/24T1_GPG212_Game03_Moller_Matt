@@ -14,12 +14,16 @@ public class PlayerControls : MonoBehaviour
     private bool forward;
     private bool antiGrav;
 
+    
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         forward = true;
         antiGrav = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,9 +37,10 @@ public class PlayerControls : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && onGround)
         {
-           
-                rb.velocity = new Vector2(rb.velocity.x, 5);
             
+                rb.velocity = new Vector2(rb.velocity.x, 5);
+            audioSource.Play();
+
         }
         
         
